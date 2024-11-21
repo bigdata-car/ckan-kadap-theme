@@ -11,7 +11,7 @@
 
 원 코드에서 하기 내용이 변경 되었습니다. 
 
-'''bash
+```bash
 $vi ~/ckan-kadap-theme/ckan/Dockerfile
 
 FROM kadap/ckan:2.1   #변경부분
@@ -37,7 +37,7 @@ RUN for d in $APP_DIR/patches/*; do \
             done ; \
         fi ; \
     done
-```
+'''
 
 
 ## 설치 방법 
