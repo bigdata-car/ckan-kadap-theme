@@ -37,7 +37,7 @@ RUN for d in $APP_DIR/patches/*; do \
             done ; \
         fi ; \
     done
-'''
+```
 
 
 ## 설치 방법 
@@ -46,12 +46,12 @@ RUN for d in $APP_DIR/patches/*; do \
 cd ~/ckan-kadap-theme/
 cp .env.example .env
 vi .env
-"""
-# CKAN_SITE_URL 수정
-CKAN_SITE_URL=https://{IP주소}:8443
-"""
+	"""
+	# CKAN_SITE_URL 수정
+	CKAN_SITE_URL=https://{IP주소}:8443
+	"""
 sudo docker-compose up -d
-'''
+```
 
 ## 접속 방법 
 https://{IP주소}:8443
