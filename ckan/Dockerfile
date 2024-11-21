@@ -1,14 +1,16 @@
-FROM ckan/ckan-base:2.11
-
+#FROM ckan/ckan-base:2.11
+FROM kadap/ckan:2.1
 # Install any extensions needed by your CKAN instance
 # See Dockerfile.dev for more details and examples
 
 # Copy custom initialization scripts
-COPY --chown=ckan-sys:ckan-sys docker-entrypoint.d/* /docker-entrypoint.d/
+#COPY --chown=ckan-sys:ckan-sys docker-entrypoint.d/* /docker-entrypoint.d/
+COPY docker-entrypoint.d/* /docker-entrypoint.d/
 
 # Apply any patches needed to CKAN core or any of the built extensions (not the
 # runtime mounted ones)
-COPY --chown=ckan-sys:ckan-sys patches ${APP_DIR}/patches
+#COPY --chown=ckan-sys:ckan-sys patches ${APP_DIR}/patches
+COPY patches ${APP_DIR}/patches
 
 USER ckan
 
