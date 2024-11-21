@@ -1,3 +1,44 @@
+# 자동차데이터포털의 서브 포털 스타일 적용
+
+## 목적 
+국내 자동차 데이터 활용활성화를 위해서는 산업부와 한국자동차연구원은 2021년부터 [자동차데이터포털](https://portal.bigdata-car.kr)을 구축하여 운영중에 있습니다. 
+
+국내 자동차 산업계에서 자체적인 데이터 포털 구축 없이, 손쉽게 데이터 포털을 구축 활용하기 위하여 서브포털을 제공을 위해 CKAN의 스타일(Theme)를 일부 수정 하여 배포 합니다. 
+
+## 변경 부분
+
+원 코드에서 하기 내용이 변경 되었습니다. 
+
+'''bash
+$vi ~//ckan-docker/ckan/Dockerfile
+
+FROM kadap/ckan:2.1   #변경부분
+
+# Install any extensions needed by your CKAN instance
+# See Dockerfile.dev for more details and examples
+
+# Copy custom initialization scripts
+#COPY --chown=ckan-sys:ckan-sys docker-entrypoint.d/* /docker-entrypoint.d/
+COPY docker-entrypoint.d/* /docker-entrypoint.d/  #변경부분
+
+# Apply any patches needed to CKAN core or any of the built extensions (not the
+# runtime mounted ones)
+#COPY --chown=ckan-sys:ckan-sys patches ${APP_DIR}/patches
+COPY patches ${APP_DIR}/patches  #변경부분
+
+USER ckan
+
+RUN for d in $APP_DIR/patches/*; do \
+        if [ -d $d ]; then \
+            for f in `ls $d/*.patch | sort -g`; do \
+                cd $SRC_DIR/`basename "$d"` && echo "$0: Applying patch $f to $SRC_DIR/`basename $d`"; patch -p1 < "$f" ; \
+            done ; \
+        fi ; \
+    done
+```
+
+
+---
 # Docker Compose setup for CKAN
 
 
